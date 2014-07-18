@@ -175,6 +175,20 @@ class Ui:
     	x = self.screen.getch()
     	return x
 
+    def build_play_mode_menu(self):
+        self.screen.move(4,1)
+        self.screen.clrtobot()
+    	self.screen.addstr(8, 19, '选择播放模式:', curses.color_pair(1))
+    	self.screen.addstr(10,19, '[1] 顺序播放')
+    	self.screen.addstr(11,19, '[2] 随机播放')
+    	self.screen.addstr(12,19, '[3] 单曲循环')
+    	self.screen.addstr(16,19, '请键入对应数字:', curses.color_pair(2))
+    	self.screen.refresh()
+    	x = self.screen.getch()
+    	return x
+
+
+
     def build_login_menu(self):
         self.screen.move(4,1)
         self.screen.clrtobot()

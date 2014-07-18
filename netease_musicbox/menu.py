@@ -149,6 +149,10 @@ class Menu:
             elif key == ord('f'):
                 self.search()
 
+            # 指定播放模式
+            elif key == ord('M'):
+                self.play_mode()
+
             # 播放下一曲
             elif key == ord(']'):
                 if len(self.presentsongs) == 0:
@@ -422,3 +426,14 @@ class Menu:
             self.datatype = 'playlists'
             self.datalist = ui.build_search('playlists')
             self.title = '精选歌单搜索列表'
+
+    def play_mode(self):
+        ui = self.ui
+        x = ui.build_play_mode_menu()
+        # if do search, push current info into stack
+        if x in range(1, 4):
+            self.stack.append( [self.datatype, self.title, self.datalist, self.offset, self.index ])
+            self.index = 0
+            self.offset = 0
+            self.player.play_mode = x
+            #self.update_ui()

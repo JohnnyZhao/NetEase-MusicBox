@@ -20,13 +20,18 @@ carousel = lambda left, right, x: left if (x>right) else (right if x<left else x
 
 class Player:
 
+
     def __init__(self):
+        self.PLAY_MODE_NORMAL = 1
+        self.PLAY_MODE_SHUFFLE = 2
+        self.PLAY_MODE_REPEAT = 3
         self.ui = Ui()
         self.datatype = 'songs'
         self.popen_handler = None
         # flag stop, prevent thread start
         self.playing_flag = False
         self.pause_flag = False
+        self.play_mode = self.PLAY_MODE_NORMAL
         self.songs = []
         self.idx = 0
         self.q_level = 0
@@ -152,7 +157,10 @@ class Player:
     def next(self):
         self.stop()
         time.sleep(0.01)
-        self.idx = carousel(0, len(self.songs)-1, self.idx+1 )
+        if self.play_mode == self.PLAY_MODE_NORMAL:
+            self.idx = carousel(0, len(self.songs)-1, self.idx+1 )
+        elif self.play_mode == PLAY_MODE_SHUFFLE:
+            self.idx = random.sample(range(0, len(self.songs)), 1)[0]
         self.recall()
 
     def prev(self):
